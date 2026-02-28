@@ -41,8 +41,6 @@ Panoptes exists because of that question.
 - [Architecture Overview](#architecture-overview)
 - [Features](#features)
 - [System Requirements](#system-requirements)
-- [Build](#build)
-- [Usage](#usage)
 - [Core Contributors](#core-contributors)
 - [Contributing](#contributing)
 - [License](LICENSE)
