@@ -45,7 +45,7 @@ Panoptes exists because of that question.
 - [Usage](#usage)
 - [Core Contributors](#core-contributors)
 - [Contributing](#contributing)
-- [License](#license)
+- [License](LICENSE)
 
 ---
 
