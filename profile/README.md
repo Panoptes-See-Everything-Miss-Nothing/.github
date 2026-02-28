@@ -29,8 +29,10 @@ Panoptes exists because of that question.
 
 ## Project Status
 
-- **Spectra Windows sensor:** Production-capable and actively maintained  
-- **Iris backend:** Under active development  
+- **Spectra Windows sensor:** Production-capable and actively maintained
+  - Check Spectra Windows repository [here](https://github.com/Panoptes-See-Everything-Miss-Nothing/spectra_windows).
+- **Iris backend:** Under active development
+  - Check Iris repository [here](https://github.com/Panoptes-See-Everything-Miss-Nothing/iris).
 - **Linux/macOS sensors:** Planned  
 
 ---
@@ -51,8 +53,8 @@ Panoptes exists because of that question.
 
 Panoptes is modular:
 
-- **Spectra** → Sensor layer (endpoint inventory collection)  
-- **Iris** → Backend correlation and intelligence engine  
+- **Spectra** → Sensor layer (endpoint inventory collection). [See](https://github.com/Panoptes-See-Everything-Miss-Nothing/spectra_windows) 
+- **Iris** → Backend correlation and intelligence engine. [See](https://github.com/Panoptes-See-Everything-Miss-Nothing/iris)
 - *(Future)* Web UI / API / Database components  
 
 ```
@@ -131,6 +133,8 @@ Panoptes is modular:
 - The application is a single native C++ executable (`Panoptes-Spectra.exe`) that can run as a **Windows Service** (periodic collection) or in **console mode** (one-shot collection).
 - Uses Volume Shadow Copy (VSS) to safely mount and inspect offline registry hives to perform full per-user inventory even for inactive or logged-out accounts.
 
+For source code and more info, see [Spectra Windows repository](https://github.com/Panoptes-See-Everything-Miss-Nothing/spectra_windows).
+
 #### Using Spectra Today
 
 > **Note:** Iris is currently under active development. In the meantime, the structured JSON inventory produced by Spectra can be ingested into your existing SIEM, data lake, CMDB, or analytics pipeline.  
@@ -172,6 +176,8 @@ Instead of signature-per-CVE, Iris:
 - Maps inventory against vulnerability ranges  
 - Reduces rule-per-CVE detection  
 
+For source code and more info, see [Iris repository](https://github.com/Panoptes-See-Everything-Miss-Nothing/iris).
+
 > One intelligent rule per application, not one rule per CVE.
 
 ---
@@ -211,20 +217,17 @@ If you have:
 - Performance optimisations  
 - API improvements
 - Test bed and/or test cases
+- Access to vendor-specific advisories that are only available to licensed customers (for validation and correlation testing purposes — proprietary content will not be redistributed)
+   - Some enterprise products publish vulnerability advisories exclusively through customer portals. 
+   - If you are a licensed customer and are willing to help validate version-to-CVE mappings, your collaboration can significantly improve coverage for those platforms.
+   - Contributors are responsible for ensuring they have appropriate vendor approval and rights to share any non-public advisory information.
 
 Open an issue or submit a pull request.
 
+For vulnerabilities, security misconfigurations, or sensitive disclosures, please submit a private issue (feature coming soon) or contact **Kapil Khot** directly.
+
+We take responsible disclosure seriously and will ensure proper acknowledgment and credit for all valid findings.
+
 Let’s build something that actually sees everything.
-
-## System Requirements
-
-| Requirement | Details |
-|---|---|
-| **OS** | Windows 10 / Windows Server 2016 or later |
-| **Architecture** | x64 (primary) or x86 (32-bit on 32-bit OS only) |
-| **Runtime privileges** | `LocalSystem` (NT AUTHORITY\SYSTEM) — required for `SE_BACKUP_NAME`, `SE_RESTORE_NAME`, and kernel ETW sessions |
-| **Installation privileges** | Local Administrator |
-| **Disk space** | ~50 MB for the application plus variable space for output data |
-| **Dependencies** | None — all functionality is implemented using native Windows APIs |
 
 ---
