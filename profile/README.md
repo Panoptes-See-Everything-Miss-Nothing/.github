@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/branding/panoptes-logo.png" alt="Panoptes Logo" width="200">
+  <img src="panoptes-logo.png" alt="Panoptes Logo" width="200">
 </p>
 
 <h1 align="center">Panoptes</h1>
