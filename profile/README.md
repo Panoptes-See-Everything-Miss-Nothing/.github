@@ -230,4 +230,19 @@ We take responsible disclosure seriously and will ensure proper acknowledgment a
 
 Let’s build something that actually sees everything.
 
+
+---
+
+# Licensing
+
+Panoptes is licensed under the **GNU General Public License v3 (GPLv3)**.
+
+This means:
+
+- You are free to **use, modify, and distribute** Panoptes.
+- Any modified or derivative works must also be licensed under **GPLv3**.
+- See the [`LICENSE`](LICENSE) file for full terms.
+
+For more details on GPLv3, visit: [https://www.gnu.org/licenses/gpl-3.0.en.html](https://www.gnu.org/licenses/gpl-3.0.en.html)
+
 ---
