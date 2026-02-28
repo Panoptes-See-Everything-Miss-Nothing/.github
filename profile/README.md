@@ -34,3 +34,96 @@ Panoptes exists because of that question.
 - **Linux/macOS sensors:** Planned  
 
 ---
+
+# Table of Contents
+
+- [Why Panoptes?](#why-panoptes)
+- [Architecture Overview](#architecture-overview)
+- [Features](#features)
+- [System Requirements](#system-requirements)
+- [Build](#build)
+- [Usage](#usage)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Output](#output)
+- [Security](#security)
+- [Project Structure](#project-structure)
+- [Documentation](#documentation)
+- [Core Contributors](#core-contributors)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+# Architecture Overview
+
+Panoptes is modular:
+
+- **Spectra** → Sensor layer (endpoint inventory collection)  
+- **Iris** → Backend correlation and intelligence engine  
+- *(Future)* Web UI / API / Database components  
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Panoptes Platform                    │
+│           See Everything. Miss Nothing.                 │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+│  │   Spectra    │  │   Spectra    │  │   Spectra    │  │
+│  │   Windows    │  │    Linux     │  │    macOS     │  │
+│  │  (this repo) │  │  (planned)   │  │  (planned)   │  │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  │
+│         │                 │                 │          │
+│         └────────┬────────┴────────┬────────┘          │
+│                  │                 │                    │
+│           ┌──────▼──────┐  ┌──────▼──────┐             │
+│           │  Ingestion  │  │  Database   │             │
+│           │  Pipeline   │──▶│  (findings) │             │
+│           └─────────────┘  └──────┬──────┘             │
+│                                   │                    │
+│                            ┌───────▼───────┐             │
+│                            │    Iris     │             │
+│                            │  (backend)  │             │
+│                            │  NVD match  │             │
+│                            └───────┬───────┘             │
+│                                   │                    │
+│                            ┌───────▼───────┐             │
+│                            │  Dashboard  │             │
+│                            │  (frontend) │             │
+│                            └─────────────┘             │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+
+**Spectra Sensor for Windows**
+
+┌─────────────────────────────────────────────────────┐
+│                  Main.cpp (Entry Point)             │
+│   /install · /upgrade · /uninstall · /console · SCM │
+└────────┬────────────────────────────┬───────────────┘
+         │                            │
+   ┌─────▼──────┐            ┌───────▼────────┐
+   │  Service    │            │  Console Mode  │
+   │  Framework  │            │  (one-shot)    │
+   └─────┬──────┘            └───────┬────────┘
+         │                            │
+   ┌─────▼────────────────────────────▼───────┐
+   │          Data Collection Engine           │
+   │  ┌────────────┐  ┌───────────────────┐   │
+   │  │ Win32Apps   │  │ WinAppXPackages   │   │
+   │  │ MsiApps     │  │ AppXPackages      │   │
+   │  │ InstalledUpdates │  │ WindowsServices   │   │
+   │  │ OsVersion   │  │ ProcessTracker    │   │
+   │  │ MachineInfo ... │  │ UserProfiles ...     │   │
+   │  └────────────┘  └───────────────────┘   │
+   └──────────────────┬───────────────────────┘
+                      │
+              ┌───────▼────────────┐
+              │  JSON Output        │
+              │ inventory.json      │
+              │ processes.json      │
+              │ mspt_inventory.json │
+              └─────────────────────┘
+```
+---
+
