@@ -43,12 +43,6 @@ Panoptes exists because of that question.
 - [System Requirements](#system-requirements)
 - [Build](#build)
 - [Usage](#usage)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Output](#output)
-- [Security](#security)
-- [Project Structure](#project-structure)
-- [Documentation](#documentation)
 - [Core Contributors](#core-contributors)
 - [Contributing](#contributing)
 - [License](#license)
@@ -127,3 +121,73 @@ Panoptes is modular:
 ```
 ---
 
+### Spectra Sensor for Windows
+
+#### Features
+
+- Deep system inventory (Win32/MSI/AppX, processes, services, updates)  
+- Artefact collection even when patch data is missing  
+- ETW-based process tracking  
+- JSON output for ingestion into SIEM, data lakes, or analytics pipelines  
+- Supports querying and CVE correlation (once Iris backend is ready)
+- The application is a single native C++ executable (`Panoptes-Spectra.exe`) that can run as a **Windows Service** (periodic collection) or in **console mode** (one-shot collection).
+- Uses Volume Shadow Copy (VSS) to safely mount and inspect offline registry hives to perform full per-user inventory even for inactive or logged-out accounts.
+
+#### Using Spectra Today
+
+> **Note:** Iris is currently under active development. In the meantime, the structured JSON inventory produced by Spectra can be ingested into your existing SIEM, data lake, CMDB, or analytics pipeline.  
+> This allows you to immediately query your environment for affected versions, analyse CVE exposure, and build custom correlation logic — even before the full Panoptes backend is deployed.
+
+---
+
+
+### 4. Artefact Collection Even When Patch Data Is Missing
+
+If patch information cannot be determined:
+
+Spectra still collects artefacts answering:
+
+- On which systems is this application present?  
+- How many instances exist?  
+- Where is it running?  
+- What signals are available?  
+
+These artefacts can be used in multiple ways:
+
+- Community members (or in-house teams) can create reusable detection rules based on them.  
+- Security teams can run their own queries against inventory data — either within existing data sources (by ingesting Spectra JSON) or, once Iris backend is available, via Iris.
+
+---
+
+# Iris (Backend Correlation Engine)
+
+**Iris** correlates Spectra inventory data against:
+
+- NVD  
+- Vendor advisories  
+- Patch Tuesday releases  
+- Other vulnerability sources  
+
+Instead of signature-per-CVE, Iris:
+
+- Correlates versions automatically  
+- Maps inventory against vulnerability ranges  
+- Reduces rule-per-CVE detection  
+
+> One intelligent rule per application, not one rule per CVE.
+
+---
+
+
+## System Requirements
+
+| Requirement | Details |
+|---|---|
+| **OS** | Windows 10 / Windows Server 2016 or later |
+| **Architecture** | x64 (primary) or x86 (32-bit on 32-bit OS only) |
+| **Runtime privileges** | `LocalSystem` (NT AUTHORITY\SYSTEM) — required for `SE_BACKUP_NAME`, `SE_RESTORE_NAME`, and kernel ETW sessions |
+| **Installation privileges** | Local Administrator |
+| **Disk space** | ~50 MB for the application plus variable space for output data |
+| **Dependencies** | None — all functionality is implemented using native Windows APIs |
+
+---
