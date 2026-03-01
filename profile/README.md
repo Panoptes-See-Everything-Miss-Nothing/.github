@@ -30,12 +30,18 @@ Panoptes exists because of that question.
 
 ## Project Status
 
-- **Spectra Windows sensor:** Production-capable and actively maintained
+- **[Spectra Windows sensor](https://github.com/Panoptes-See-Everything-Miss-Nothing/spectra_windows):** Production-capable and actively maintained
   - Check Spectra Windows repository [here](https://github.com/Panoptes-See-Everything-Miss-Nothing/spectra_windows).
 - **Iris backend:** Under active development
   - Check Iris repository [here](https://github.com/Panoptes-See-Everything-Miss-Nothing/iris).
 - **Linux/macOS sensors:** Planned  
 
+Together:
+
+- **Spectra → Observes**  
+- **[Iris](https://github.com/Panoptes-See-Everything-Miss-Nothing/iris) → Correlates**  
+- **[Panoptes](https://github.com/Panoptes-See-Everything-Miss-Nothing) → Sees Everything. Miss Nothing**
+  
 ---
 
 # Table of Contents
@@ -180,6 +186,34 @@ Instead of signature-per-CVE, Iris:
 For source code and more info, see [Iris repository](https://github.com/Panoptes-See-Everything-Miss-Nothing/iris).
 
 > One intelligent rule per application, not one rule per CVE.
+
+---
+
+## Why Spectra + Iris Reduces Dependency on CVE Signatures
+
+Traditional vulnerability scanners often require a dedicated detection rule or signature for every new CVE. This creates:
+
+- Dependency on vendor update cycles  
+- Delays between CVE disclosure and usable detection  
+- Continuous rule maintenance overhead  
+- Coverage gaps when vendors choose not to support niche or less common products  
+
+In some cases, scanner vendors may decline to create detection logic because:
+
+- The product is not widely deployed  
+- They do not officially support it  
+- They cannot reproduce it in their lab  
+- It falls outside their commercial priorities  
+
+**Spectra removes that dependency model.**
+
+Because Spectra focuses on collecting accurate system artefacts rather than per-CVE signatures, detection logic can be written around the **product itself**, not a single vulnerability.
+
+If you care about a specific application and Spectra collects the relevant artefacts, you can define correlation logic once. Iris can then evaluate **future CVEs affecting that product automatically** — without requiring new signatures for every disclosure.
+
+In most cases, you write the product intelligence once — and future vulnerabilities become a **data correlation problem, not a rule engineering problem**.
+
+Control shifts back to the organisation.
 
 ---
 
